@@ -1,2 +1,2 @@
-# SuperMathBoy
+# SuperMatBoy
 Super Meat Boy inspired game
