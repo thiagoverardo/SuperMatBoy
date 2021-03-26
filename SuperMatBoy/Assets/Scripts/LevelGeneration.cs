@@ -10,7 +10,7 @@ public class LevelGeneration : MonoBehaviour
     private int direction;
     private bool stopGeneration;
     private int downCounter;
-    private float moveIncrement = 10f;
+    private float moveIncrement = 20f;
     private float timeBtwSpawn;
     private float startTimeBtwSpawn = 0.1f;
     public LayerMask whatIsRoom;
@@ -40,7 +40,7 @@ public class LevelGeneration : MonoBehaviour
         if (direction == 1 || direction == 2) // Move right
         {
 
-            if (transform.position.x + moveIncrement < 20)
+            if (transform.position.x + moveIncrement < 40)
             {
                 downCounter = 0;
                 Vector2 pos = new Vector2(transform.position.x + moveIncrement, transform.position.y);
@@ -67,7 +67,7 @@ public class LevelGeneration : MonoBehaviour
         else if (direction == 3 || direction == 4) // Move left
         {
 
-            if (transform.position.x - moveIncrement > -20)
+            if (transform.position.x - moveIncrement > -40)
             {
                 downCounter = 0;
                 Vector2 pos = new Vector2(transform.position.x - moveIncrement, transform.position.y);
@@ -87,7 +87,7 @@ public class LevelGeneration : MonoBehaviour
         else if (direction == 5) // Move down
         {
             downCounter++;
-            if (transform.position.y - moveIncrement > -30)
+            if (transform.position.y - moveIncrement > -50)
             {
                 Collider2D previousRoom = Physics2D.OverlapCircle(transform.position, 1, whatIsRoom);
                 if (previousRoom.GetComponent<Room>().roomType != 3 && previousRoom.GetComponent<Room>().roomType != 1)
