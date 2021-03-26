@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     //             rigid.AddForce(new Vector2(-jumpForce/2, jumpForce), ForceMode2D.Impulse);
     //             jumps--;
     //         }
-            
+
     //     }
     // }
 
@@ -79,42 +79,39 @@ public class PlayerController : MonoBehaviour
     //         lastMov = -lastMov;
     //     }
     // }
-
+    public LevelGeneration levelGen;
     private Renderer rend;
     private Rigidbody2D rigid;
-
+    public Transform startingPosition;
     public float maxSpeed = 10;
     public float acceleration = 35;
     public float jumpSpeed = 8;
     public float jumpDuration;
     public bool wallHitDJOverride = true;
 
-    // internal checks
-
     int jump = 2;
-
     bool wallJump = false;
     float jmpDuration;
 
     bool jumpKewDown = false;
     bool canVariableJump = false;
-
     bool onTheGround = false;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
+        transform.position = startingPosition.position + new Vector3(-3, 0, 0);
     }
-    
 
-    void Update() 
+
+    void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
 
-        if(horizontal < -0.1f)
+        if (horizontal < -0.1f)
         {
-            if(rigid.velocity.x > -this.maxSpeed)
+            if (rigid.velocity.x > -this.maxSpeed)
             {
                 rigid.AddForce(new Vector2(-this.acceleration, 0f));
             }
@@ -123,9 +120,9 @@ public class PlayerController : MonoBehaviour
                 rigid.velocity = new Vector2(-this.maxSpeed, rigid.velocity.y);
             }
         }
-        else if(horizontal > 0.1f)
+        else if (horizontal > 0.1f)
         {
-            if(rigid.velocity.x < this.maxSpeed)
+            if (rigid.velocity.x < this.maxSpeed)
             {
                 rigid.AddForce(new Vector2(this.acceleration, 0f));
             }
@@ -135,21 +132,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+
 
         float vertical = Input.GetAxis("Vertical");
 
-        if(onTheGround)
+        if (onTheGround)
         {
             jump = 2;
         }
 
-        if(Input.GetButtonDown("Jump") && jump > 0)
+        if (Input.GetButtonDown("Jump") && jump > 0)
         {
-            if(!jumpKewDown)
+            if (!jumpKewDown)
             {
                 jumpKewDown = true;
-                if(onTheGround || wallHitDJOverride)
+                if (onTheGround || wallHitDJOverride)
                 {
                     bool wallHit = false;
                     int wallHitDirection = 0;
@@ -158,22 +155,22 @@ public class PlayerController : MonoBehaviour
                     bool leftWallHit = isWallOnLeft();
                     bool rightWallHit = isWallOnRight();
 
-                    if(horizontal != 0 )
+                    if (horizontal != 0)
                     {
-                        if(leftWallHit)
+                        if (leftWallHit)
                         {
                             wallHit = true;
                             wallHitDirection = 1;
                             jump = 2;
                         }
-                        else if(rightWallHit)
+                        else if (rightWallHit)
                         {
                             wallHit = true;
                             wallHitDirection = -1;
                             jump = 2;
                         }
                     }
-                    if(!wallHit)
+                    if (!wallHit)
                     {
                         rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);
 
@@ -185,24 +182,24 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        rigid.velocity = new Vector2(this.jumpSpeed * wallHitDirection * 2, this.jumpSpeed*1.2f);
+                        rigid.velocity = new Vector2(this.jumpSpeed * wallHitDirection * 2, this.jumpSpeed * 1.2f);
 
                         jmpDuration = 0.0f;
 
                         canVariableJump = true;
 
-                        jump --;
+                        jump--;
                     }
-                    
+
                 }
-                else if(canVariableJump)
+                else if (canVariableJump)
                 {
                     jmpDuration += Time.deltaTime;
 
-                    if(jmpDuration < this.jumpDuration / 1000 && jump > 0)
+                    if (jmpDuration < this.jumpDuration / 1000 && jump > 0)
                     {
                         rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);
-                        jump --;
+                        jump--;
                     }
                 }
             }
@@ -211,11 +208,11 @@ public class PlayerController : MonoBehaviour
         {
             jumpKewDown = false;
             canVariableJump = false;
-        }        
+        }
     }
     private bool isWallOnLeft()
     {
-        if(wallJump)
+        if (wallJump)
         {
             bool retVal = false;
             float lenghtToSearch = 0.1f;
@@ -239,7 +236,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isWallOnRight()
     {
-        if(wallJump)
+        if (wallJump)
         {
             bool retVal = false;
             float lenghtToSearch = 0.1f;
@@ -263,16 +260,16 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8)
         {
             wallJump = false;
             onTheGround = true;
         }
-        if(collision.gameObject.layer == 9)
+        if (collision.gameObject.layer == 9)
         {
             wallJump = false;
         }
-        else if(collision.gameObject.layer == 10)
+        else if (collision.gameObject.layer == 10)
         {
             wallJump = true;
             jump = 2;
