@@ -194,10 +194,27 @@ public class PlayerController : MonoBehaviour
         {
             wallJump = false;
         }
-        else if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10)
         {
             wallJump = true;
             jump = 2;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("pushingTrapBot"))
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, 20);
+        }
+        if (col.CompareTag("pushingTrapLeft"))
+        {
+            rigid.velocity = new Vector2(20, rigid.velocity.y);
+        }
+        if (col.CompareTag("pushingTrapRight"))
+        {
+            rigid.velocity = new Vector2(-20, rigid.velocity.y);
+        }
+
     }
 }
