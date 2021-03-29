@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public LevelGeneration levelGen;
     private Renderer rend;
     private Rigidbody2D rigid;
-    public Transform startingPosition;
     public float maxSpeed = 10;
     public float acceleration = 35;
     public float jumpSpeed = 8;
@@ -26,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
-        transform.position = startingPosition.position + new Vector3(-3, 0, 0);
+        transform.position = new Vector3(-39, 16, 0);
     }
 
 

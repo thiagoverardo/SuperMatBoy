@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1511445133657757305}
   - component: {fileID: 1511445133657757573}
   m_Layer: 10
-  m_Name: SuperMatBoy 1
+  m_Name: SuperMatBoy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,8 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b82d7e3358476d4a894a25b3d19d6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGen: {fileID: 0}
-  startingPosition: {fileID: 0}
   maxSpeed: 10
   acceleration: 35
   jumpSpeed: 9
