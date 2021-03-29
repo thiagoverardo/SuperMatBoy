@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxSource: {fileID: 1986750742}
   ambienceSource: {fileID: 1715786194}
-  music: {fileID: 0}
+  music: {fileID: 8300000, guid: e654f402975ed0e43921a53e7f76ff72, type: 3}
 --- !u!4 &1173195080
 Transform:
   m_ObjectHideFlags: 0
@@ -786,6 +786,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1030845606195339328, guid: 9280398c7a937ce4fa728b757c85e9bf,
+        type: 3}
+      propertyPath: sfxPlay
+      value: 
+      objectReference: {fileID: 8300000, guid: 986534d135f566547b2e72bf20523456, type: 3}
     - target: {fileID: 1030845606195339334, guid: 9280398c7a937ce4fa728b757c85e9bf,
         type: 3}
       propertyPath: m_Name

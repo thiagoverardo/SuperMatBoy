@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     private static AudioManager _instance;
     void Awake()
     {
+        DontDestroyOnLoad(transform.gameObject);
         _instance = this;
         if (music)
         {

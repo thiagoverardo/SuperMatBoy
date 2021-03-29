@@ -15,7 +15,7 @@ public class LevelLoader : MonoBehaviour
         if (Input.anyKeyDown)
         {
             AudioManager.PlaySFX(sfxPlay);
-            Invoke("LoadScene", 2f);
+            Invoke("LoadScene", 1f);
         }
     }
     void LoadScene()
