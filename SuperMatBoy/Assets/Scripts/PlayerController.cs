@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 8;
     public float jumpDuration;
     public bool wallHitDJOverride = true;
-
     int jump = 2;
     bool wallJump = false;
     float jmpDuration;
@@ -19,12 +18,14 @@ public class PlayerController : MonoBehaviour
     bool jumpKewDown = false;
     bool canVariableJump = false;
     bool onTheGround = false;
+    GameManager gm;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
         transform.position = new Vector3(-39, 16, 0);
+        gm = GameManager.GetInstance();
     }
 
 
@@ -213,6 +214,10 @@ public class PlayerController : MonoBehaviour
         {
             rigid.velocity = new Vector2(-20, rigid.velocity.y);
         }
-
+        if (col.CompareTag("Finish"))
+        {
+            gm.levelPassed = true;
+            // GameObject.FindWithTag("Finish").GetComponent<Collider>().isTrigger = false;
+        }
     }
 }

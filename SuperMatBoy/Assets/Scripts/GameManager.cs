@@ -1,11 +1,16 @@
 ﻿public class GameManager
 {
-    public enum GameState { MENU, GAME, PAUSE, ENDGAME };
+    // public enum GameState { MENU, GAME, PAUSE, ENDGAME };
 
-    public GameState gameState { get; private set; }
-    public int vidas;
+    // public GameState gameState { get; private set; }
+    public int lifes;
+    private int startingLifes = 4;
     public float timeElapsed;
+    private float initialTime = 0.0f;
+    public int flagsCaptured;
+    private int startingFlags = 0;
     private static GameManager _instance;
+    public bool levelPassed;
 
     public static GameManager GetInstance()
     {
@@ -18,23 +23,27 @@
     }
     private GameManager()
     {
-        vidas = 3;
-        timeElapsed = 0.0f;
+        lifes = startingLifes;
+        timeElapsed = initialTime;
+        levelPassed = false;
+        flagsCaptured = startingFlags;
     }
 
-    public delegate void ChangeStateDelegate();
-    public static ChangeStateDelegate changeStateDelegate;
+    // public delegate void ChangeStateDelegate();
+    // public static ChangeStateDelegate changeStateDelegate;
 
-    public void ChangeState(GameState nextState)
-    {
-        if (nextState == GameState.GAME) Reset();
-        gameState = nextState;
-        changeStateDelegate();
-    }
+    // public void ChangeState(GameState nextState)
+    // {
+    //     if (nextState == GameState.GAME) Reset();
+    //     gameState = nextState;
+    //     changeStateDelegate();
+    // }
 
     private void Reset()
     {
-        vidas = 3;
-        timeElapsed = 0.0f;
+        lifes = startingLifes;
+        timeElapsed = initialTime;
+        levelPassed = false;
+        flagsCaptured = startingFlags;
     }
 }
