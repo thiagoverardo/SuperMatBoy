@@ -14,6 +14,7 @@ public class LevelGeneration : MonoBehaviour
     private float timeBtwSpawn;
     private float startTimeBtwSpawn = 0.1f;
     public LayerMask whatIsRoom;
+    public GameObject flag;
     private void Start()
     {
         transform.position = startingPosition.position;
@@ -121,8 +122,8 @@ public class LevelGeneration : MonoBehaviour
             else
             {
                 stopGeneration = true;
+                Instantiate(flag, transform.position + new Vector3(9, -3.5f, 0), Quaternion.identity);
             }
-
         }
     }
 }
