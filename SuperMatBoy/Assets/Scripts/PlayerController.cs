@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public LevelGeneration levelGen;
     private Renderer rend;
     private Rigidbody2D rigid;
+    private Animator anim;
     public Transform startingPosition;
     public float maxSpeed = 10;
     public float acceleration = 35;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         transform.position = startingPosition.position + new Vector3(-3, 0, 0);
     }
 
@@ -34,26 +36,39 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
 
-        if (horizontal < -0.1f)
+        if (horizontal < -0.01f)
         {
             if (rigid.velocity.x > -this.maxSpeed)
             {
                 rigid.AddForce(new Vector2(-this.acceleration, 0f));
+                if(rigid.velocity.y < 1 && rigid.velocity.y > -1 && onTheGround){
+                    anim.SetTrigger("RunL");
+                }
+
             }
             else
             {
                 rigid.velocity = new Vector2(-this.maxSpeed, rigid.velocity.y);
+                if(rigid.velocity.y < 1 && rigid.velocity.y > -1 && onTheGround){
+                    anim.SetTrigger("RunL");
+                }
             }
         }
-        else if (horizontal > 0.1f)
+        else if (horizontal > 0.01f)
         {
             if (rigid.velocity.x < this.maxSpeed)
             {
                 rigid.AddForce(new Vector2(this.acceleration, 0f));
+                if(rigid.velocity.y < 1 && rigid.velocity.y > -1 && onTheGround){
+                    anim.SetTrigger("Run");
+                }
             }
             else
             {
-                rigid.velocity = new Vector2(this.maxSpeed, rigid.velocity.y);
+                rigid.velocity = new Vector2(this.maxSpeed, rigid.velocity.y );
+                if(rigid.velocity.y < 1 && rigid.velocity.y > -1 && onTheGround){
+                    anim.SetTrigger("Run");
+                }
             }
         }
 
@@ -63,6 +78,11 @@ public class PlayerController : MonoBehaviour
 
         if (onTheGround)
         {
+            if(rigid.velocity.x == 0 && rigid.velocity.y == 0)
+            {
+                anim.SetTrigger("Floor");
+                Debug.Log(rigid.velocity);
+            }
             jump = 2;
         }
 
@@ -79,6 +99,13 @@ public class PlayerController : MonoBehaviour
 
                     bool leftWallHit = isWallOnLeft();
                     bool rightWallHit = isWallOnRight();
+
+                    if(rigid.velocity.x > 0){
+                            anim.SetTrigger("Jump");
+                        }
+                    if(rigid.velocity.x < 0){
+                        anim.SetTrigger("JumpL");
+                    }
 
                     if (horizontal != 0)
                     {
@@ -97,7 +124,7 @@ public class PlayerController : MonoBehaviour
                     }
                     if (!wallHit)
                     {
-                        rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);
+                        rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);                        
 
                         jmpDuration = 0.0f;
 
@@ -108,6 +135,13 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         rigid.velocity = new Vector2(this.jumpSpeed * wallHitDirection, this.jumpSpeed * 1.2f);
+                        if(rigid.velocity.x > 0){
+                            anim.SetTrigger("Jump");
+                        }
+                        if(rigid.velocity.x < 0){
+                            anim.SetTrigger("JumpL");
+                            Debug.Log(rigid.velocity.x);
+                        }
 
                         jmpDuration = 0.0f;
 
@@ -124,6 +158,13 @@ public class PlayerController : MonoBehaviour
                     if (jmpDuration < this.jumpDuration / 1000 && jump > 0)
                     {
                         rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);
+                        if(rigid.velocity.x > 0){
+                            anim.SetTrigger("Jump");
+                        }
+                        if(rigid.velocity.x < 0){
+                            anim.SetTrigger("JumpL");
+                            Debug.Log(rigid.velocity.x);
+                        }
                         jump--;
                     }
                 }
@@ -206,6 +247,13 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("pushingTrapBot"))
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 20);
+            if(rigid.velocity.x > 0){
+                anim.SetTrigger("Jump");
+            }
+            if(rigid.velocity.x < 0){
+                anim.SetTrigger("JumpL");
+                Debug.Log(rigid.velocity.x);
+            }
         }
         if (col.CompareTag("pushingTrapLeft"))
         {
