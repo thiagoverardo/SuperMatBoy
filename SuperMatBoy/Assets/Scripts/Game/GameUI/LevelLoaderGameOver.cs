@@ -4,23 +4,38 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //https://www.youtube.com/watch?v=CE9VOZivb3I&ab_channel=Brackeys   
-public class LevelLoader : MonoBehaviour
+public class LevelLoaderGameOver : MonoBehaviour
 {
-
-    public AudioClip sfxPlay;
     public Animator transition;
+    public AudioClip sfxPlay;
     public float transitionTime = 4f;
+    GameManager gm;
+    void Start()
+    {
+        gm = GameManager.GetInstance();
+    }
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.R))
         {
+            gm.Reset();
             AudioManager.PlaySFX(sfxPlay);
             Invoke("LoadGame", 1f);
         }
+        else if (Input.anyKeyDown)
+        {
+            gm.Reset();
+            Invoke("LoadMenu", 1f);
+        }
     }
+    void LoadMenu()
+    {
+        StartCoroutine(LoadLevel(0));
+    }
+
     void LoadGame()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     IEnumerator LoadLevel(int levelIndex)

@@ -20,14 +20,14 @@ public class LevelLoaderGame : MonoBehaviour
         {
             gm.levelPassed = false;
             AudioManager.PlaySFX(sfxPlay);
-            Invoke("LoadScene", 1f);
+            Invoke("ReloadGame", 1f);
         }
         if (gm.lifes == 0)
         {
             Invoke("LoadGameOverScene", 1f);
         }
     }
-    void LoadScene()
+    void ReloadGame()
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }

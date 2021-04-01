@@ -39,7 +39,7 @@
     //     changeStateDelegate();
     // }
 
-    private void Reset()
+    public void Reset()
     {
         lifes = startingLifes;
         timeElapsed = initialTime;
