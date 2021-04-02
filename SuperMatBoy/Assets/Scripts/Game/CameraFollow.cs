@@ -9,11 +9,14 @@ public class CameraFollow : MonoBehaviour
 
     public float smoothSpeed;
     public Vector3 offset;
+    public PlayerController pc;
 
     void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPos;
+        if(pc.moving){
+            Vector3 desiredPosition = target.position + offset;
+            Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothedPos;
+        }   
     }
 }

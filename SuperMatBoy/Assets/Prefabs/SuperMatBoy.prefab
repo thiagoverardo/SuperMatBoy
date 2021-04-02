@@ -151,6 +151,8 @@ MonoBehaviour:
   jumpSpeed: 9
   jumpDuration: 150
   wallHitDJOverride: 1
+  moving: 0
+  blood: {fileID: 6553184772954975301, guid: 83e630a5bb362664b8ea4565b09fd0f8, type: 3}
 --- !u!95 &8894602142896109222
 Animator:
   serializedVersion: 3

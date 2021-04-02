@@ -11,6 +11,7 @@
     private int startingFlags = 0;
     private static GameManager _instance;
     public bool levelPassed;
+    public bool died;
 
     public static GameManager GetInstance()
     {
@@ -26,6 +27,7 @@
         lifes = startingLifes;
         timeElapsed = initialTime;
         levelPassed = false;
+        died = false;
         flagsCaptured = startingFlags;
     }
 
@@ -44,6 +46,7 @@
         lifes = startingLifes;
         timeElapsed = initialTime;
         levelPassed = false;
+        died = false;
         flagsCaptured = startingFlags;
     }
 }

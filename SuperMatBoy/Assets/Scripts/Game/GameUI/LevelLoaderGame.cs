@@ -26,6 +26,12 @@ public class LevelLoaderGame : MonoBehaviour
         {
             Invoke("LoadGameOverScene", 1f);
         }
+        if(gm.died)
+        {
+            Invoke("ReloadGame", 1f);
+            gm.died = false;
+        }
+
     }
     void ReloadGame()
     {

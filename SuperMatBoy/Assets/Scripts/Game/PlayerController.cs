@@ -24,23 +24,26 @@ public class PlayerController : MonoBehaviour
     bool jumpKewDown = false;
     bool canVariableJump = false;
     bool onTheGround = false;
+    public bool moving;
     GameManager gm;
+
+    public GameObject blood;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        transform.position = startingPosition.position + new Vector3(-3, 0, 0);
-        transform.position = new Vector3(-39, 16, 0);
+        // transform.position = startingPosition.position + new Vector3(-3, 2, 0);
+        transform.position = new Vector3(-36, 22, 0);
+        moving = true;
         gm = GameManager.GetInstance();
     }
 
 
     void Update()
     {
-        if(!gm.levelPassed){
-
+        if(moving){
             if(timeOut){
                 horizontal = 0f;
                 timer += Time.deltaTime;
@@ -175,7 +178,13 @@ public class PlayerController : MonoBehaviour
                 jumpKewDown = false;
                 canVariableJump = false;
             }
+
         }
+        else{
+            rigid.velocity = new Vector2(0f, 0.6f);
+        }
+        
+        
     }
 
     private bool isWallOnLeft()
@@ -267,13 +276,11 @@ public class PlayerController : MonoBehaviour
         }
         if (col.CompareTag("sawTrap"))
         {
-            if(!gm.levelPassed)
-            {
-                gm.lifes--;
-                if(gm.lifes > 0){
-                    SceneManager.LoadScene(1);
-                }
-            }
+            gm.lifes--;
+            gm.died = true;
+            moving = false;
+            Instantiate(blood, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
         if (col.CompareTag("Finish"))
         {
