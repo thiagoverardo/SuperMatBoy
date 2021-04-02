@@ -7,6 +7,7 @@ TagManager:
   - pushingTrapBot
   - pushingTrapLeft
   - pushingTrapRight
+  - sawTrap
   layers:
   - Default
   - TransparentFX

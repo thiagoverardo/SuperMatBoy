@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
     int jump = 2;
     bool wallJump = false;
     float jmpDuration;
+    bool timeOut = false;
+    float horizontal;
+    float timer = 0f;
 
     bool jumpKewDown = false;
     bool canVariableJump = false;
@@ -36,7 +40,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(!gm.levelPassed){
-            float horizontal = Input.GetAxis("Horizontal");
+
+            if(timeOut){
+                horizontal = 0f;
+                timer += Time.deltaTime;
+                if(timer > 0.5f){
+                    timeOut = false;
+                }
+            }
+
+            if(!timeOut){
+                horizontal = Input.GetAxis("Horizontal");
+            }
 
             Vector3 charScale = transform.localScale;
 
@@ -71,13 +86,11 @@ public class PlayerController : MonoBehaviour
             transform.localScale = charScale;
 
             if(rigid.velocity.y > 0.6f){
-                Debug.Log(rigid.velocity.y);
                 anim.SetBool("IsFalling", false);
                 anim.SetBool("IsJumping", true);
             }
 
             if(rigid.velocity.y < -0.6f){
-                Debug.Log(rigid.velocity.y);
                 anim.SetBool("IsJumping", false);
                 anim.SetBool("IsFalling", true);
             }
@@ -94,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 jump = 2;
             }
 
-            if (Input.GetButtonDown("Jump") && jump > 0)
+            if (Input.GetButtonDown("Jump") && jump > 0 && !timeOut)
             {
                 if (!jumpKewDown)
                 {
@@ -107,24 +120,6 @@ public class PlayerController : MonoBehaviour
 
                         bool leftWallHit = isWallOnLeft();
                         bool rightWallHit = isWallOnRight();
-
-                        if(rigid.velocity.y >= 0){
-                            if(rigid.velocity.x > 0){
-                                    anim.SetTrigger("Jump");
-                                }
-                            else{
-                                anim.SetTrigger("JumpL");
-                            }
-                        }
-
-                        if(rigid.velocity.y < 0){
-                            if(rigid.velocity.x < 0){
-                                anim.SetTrigger("FallL");
-                            }
-                            else{
-                                anim.SetTrigger("Fall");
-                            }
-                        }
 
                         if (horizontal != 0)
                         {
@@ -254,14 +249,31 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("pushingTrapBot"))
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 20);
+            jump = 1;
         }
         if (col.CompareTag("pushingTrapLeft"))
         {
             rigid.velocity = new Vector2(20, rigid.velocity.y);
+            jump = 1;
+            timeOut = true;
+            timer = 0f;
         }
         if (col.CompareTag("pushingTrapRight"))
         {
             rigid.velocity = new Vector2(-20, rigid.velocity.y);
+            jump = 1;
+            timeOut = true;
+            timer = 0f;
+        }
+        if (col.CompareTag("sawTrap"))
+        {
+            if(!gm.levelPassed)
+            {
+                gm.lifes--;
+                if(gm.lifes > 0){
+                    SceneManager.LoadScene(1);
+                }
+            }
         }
         if (col.CompareTag("Finish"))
         {

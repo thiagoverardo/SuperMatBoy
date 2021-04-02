@@ -22,7 +22,7 @@ public class LevelLoaderGame : MonoBehaviour
             AudioManager.PlaySFX(sfxPlay);
             Invoke("ReloadGame", 1f);
         }
-        if (gm.lifes == 0)
+        if (gm.lifes <= 0)
         {
             Invoke("LoadGameOverScene", 1f);
         }
