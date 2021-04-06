@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip jumpSfx;
+    public AudioClip deathSfx;
+    public AudioClip trapSfx;
+    public AudioClip bossHitSfx;
     private Renderer rend;
     private Rigidbody2D rigid;
     private Animator anim;
@@ -46,20 +50,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(moving){
-            if(timeOut){
+        if (moving)
+        {
+            if (timeOut)
+            {
                 horizontal = 0f;
                 timer += Time.deltaTime;
-                if(timer > 0.5f){
+                if (timer > 0.5f)
+                {
                     timeOut = false;
                 }
             }
-            if(Time.time - timerDano > 0.5)
+            if (Time.time - timerDano > 0.5)
             {
                 acertou = false;
             }
 
-            if(!timeOut){
+            if (!timeOut)
+            {
                 horizontal = Input.GetAxis("Horizontal");
             }
 
@@ -89,26 +97,29 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    rigid.velocity = new Vector2(this.maxSpeed, rigid.velocity.y );
+                    rigid.velocity = new Vector2(this.maxSpeed, rigid.velocity.y);
                 }
             }
 
             transform.localScale = charScale;
 
-            if(rigid.velocity.y > 0.6f){
+            if (rigid.velocity.y > 0.6f)
+            {
                 anim.SetBool("IsFalling", false);
                 anim.SetBool("IsJumping", true);
             }
 
-            if(rigid.velocity.y < -0.6f){
+            if (rigid.velocity.y < -0.6f)
+            {
                 anim.SetBool("IsJumping", false);
                 anim.SetBool("IsFalling", true);
             }
 
-            if(rigid.velocity.y <= 0.6f && rigid.velocity.y >= -0.6f){
+            if (rigid.velocity.y <= 0.6f && rigid.velocity.y >= -0.6f)
+            {
                 anim.SetBool("IsJumping", false);
                 anim.SetBool("IsFalling", false);
-            }        
+            }
 
             float vertical = Input.GetAxis("Vertical");
 
@@ -121,6 +132,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (!jumpKewDown)
                 {
+                    AudioManager.PlaySFX(jumpSfx);
                     jumpKewDown = true;
                     if (onTheGround || wallHitDJOverride)
                     {
@@ -148,7 +160,7 @@ public class PlayerController : MonoBehaviour
                         }
                         if (!wallHit)
                         {
-                            rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);                        
+                            rigid.velocity = new Vector2(rigid.velocity.x, this.jumpSpeed);
 
                             jmpDuration = 0.0f;
 
@@ -187,11 +199,12 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else{
+        else
+        {
             rigid.velocity = new Vector2(0f, 0.6f);
         }
-        
-        
+
+
     }
 
     private bool isWallOnLeft()
@@ -264,13 +277,15 @@ public class PlayerController : MonoBehaviour
             gm.levelPassed = true;
             moving = false;
             gm.flagsCaptured++;
-            
+
         }
         if (collision.gameObject.tag == "Boss" && !acertou)
         {
             gm.lifes--;
             acertou = true;
-            if(gm.lifes<=0){
+            AudioManager.PlaySFX(bossHitSfx);
+            if (gm.lifes <= 0)
+            {
                 moving = false;
                 Instantiate(blood, transform.position, Quaternion.identity);
                 Destroy(gameObject);
@@ -282,11 +297,13 @@ public class PlayerController : MonoBehaviour
     {
         if (col.CompareTag("pushingTrapBot"))
         {
+            AudioManager.PlaySFX(trapSfx);
             rigid.velocity = new Vector2(rigid.velocity.x, 20);
             jump = 1;
         }
         if (col.CompareTag("pushingTrapLeft"))
         {
+            AudioManager.PlaySFX(trapSfx);
             rigid.velocity = new Vector2(20, rigid.velocity.y);
             jump = 1;
             timeOut = true;
@@ -294,6 +311,7 @@ public class PlayerController : MonoBehaviour
         }
         if (col.CompareTag("pushingTrapRight"))
         {
+            AudioManager.PlaySFX(trapSfx);
             rigid.velocity = new Vector2(-20, rigid.velocity.y);
             jump = 1;
             timeOut = true;
@@ -302,14 +320,18 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("sawTrap"))
         {
             gm.lifes--;
-            if(!gm.bossTime){
+            AudioManager.PlaySFX(deathSfx);
+            if (!gm.bossTime)
+            {
                 gm.died = true;
                 moving = false;
                 Instantiate(blood, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
-            else{
-                if(gm.lifes<=0){
+            else
+            {
+                if (gm.lifes <= 0)
+                {
                     moving = false;
                     Instantiate(blood, transform.position, Quaternion.identity);
                     Destroy(gameObject);
@@ -322,7 +344,7 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.x, 20);
             jump = 1;
             timerDano = Time.time;
-           
+
         }
     }
 }

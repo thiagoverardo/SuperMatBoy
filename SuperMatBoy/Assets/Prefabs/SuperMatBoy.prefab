@@ -83,7 +83,7 @@ SpriteRenderer:
   m_Size: {x: 6.4000006, y: 6.4062567}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &1511445133657757304
@@ -145,6 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b82d7e3358476d4a894a25b3d19d6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSfx: {fileID: 8300000, guid: dc1a55b75a7a12d4986c8637fafb0d7c, type: 3}
+  deathSfx: {fileID: 8300000, guid: 857d3cb3932b7c641886a5d58afb633e, type: 3}
+  trapSfx: {fileID: 8300000, guid: eeef81bffd8804e41b2d4d445c6d5a96, type: 3}
+  bossHitSfx: {fileID: 8300000, guid: 199e7fffbd5971b4cab83032ef7661eb, type: 3}
   startingPosition: {fileID: 0}
   maxSpeed: 10
   acceleration: 35
