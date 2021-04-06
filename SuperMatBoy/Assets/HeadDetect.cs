@@ -15,9 +15,12 @@ public class HeadDetect : MonoBehaviour
     public Slider healthBar;
     private Animator anim;
 
+    GameManager gm;
+
     void Start()
     {
         boss = gameObject.transform.parent.gameObject;
+        gm = GameManager.GetInstance();
     }
 
     void Update()
@@ -27,6 +30,8 @@ public class HeadDetect : MonoBehaviour
 
         if (health <= 0) {
             Destroy(boss);
+            gm.win = true;
+            
         }
 
         if (timeBtwDamage > 0) {

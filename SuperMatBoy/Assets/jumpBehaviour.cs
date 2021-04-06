@@ -12,7 +12,9 @@ public class jumpBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        playerPos = GameObject.FindWithTag("Player").transform;
+        if( GameObject.FindWithTag("Player")){
+            playerPos = GameObject.FindWithTag("Player").transform;
+        }
         timer = Random.Range(minTime, maxTime);
     }
 
@@ -28,8 +30,10 @@ public class jumpBehaviour : StateMachineBehaviour
         }
         if(animator.GetBool("jumping")){
             animator.transform.position = new Vector2(animator.transform.position.x,animator.transform.position.y+0.15f);
-            Vector2 target = new Vector2(playerPos.position.x, animator.transform.position.y);
-            animator.transform.position = Vector2.MoveTowards(animator.transform.position, target, speed * Time.deltaTime);
+            if(playerPos){
+                Vector2 target = new Vector2(playerPos.position.x, animator.transform.position.y);
+                animator.transform.position = Vector2.MoveTowards(animator.transform.position, target, speed * Time.deltaTime);
+            }
         }
     }
 

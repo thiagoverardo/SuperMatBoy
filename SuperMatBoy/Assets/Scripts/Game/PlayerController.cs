@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         // transform.position = startingPosition.position + new Vector3(-3, 2, 0);
-        transform.position = new Vector3(-36, 22, 0);
+        transform.position = new Vector3(-39, 22, 0);
         moving = true;
         gm = GameManager.GetInstance();
     }
@@ -264,11 +264,17 @@ public class PlayerController : MonoBehaviour
             gm.levelPassed = true;
             moving = false;
             gm.flagsCaptured++;
-            gm.bossTime = true;
+            
         }
         if (collision.gameObject.tag == "Boss" && !acertou)
         {
             gm.lifes--;
+            acertou = true;
+            if(gm.lifes<=0){
+                moving = false;
+                Instantiate(blood, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -296,12 +302,21 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("sawTrap"))
         {
             gm.lifes--;
-            gm.died = true;
-            moving = false;
-            Instantiate(blood, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            if(!gm.bossTime){
+                gm.died = true;
+                moving = false;
+                Instantiate(blood, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+            else{
+                if(gm.lifes<=0){
+                    moving = false;
+                    Instantiate(blood, transform.position, Quaternion.identity);
+                    Destroy(gameObject);
+                }
+            }
         }
-        if (col.CompareTag("BossHead"))
+        if (col.CompareTag("BossHead") && !acertou)
         {
             acertou = true;
             rigid.velocity = new Vector2(rigid.velocity.x, 20);

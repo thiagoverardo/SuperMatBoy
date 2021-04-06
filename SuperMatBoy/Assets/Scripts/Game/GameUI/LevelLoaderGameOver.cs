@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelLoaderGameOver : MonoBehaviour
 {
     public Animator transition;
-    public AudioClip sfxPlay;
     public float transitionTime = 4f;
     GameManager gm;
     void Start()
@@ -19,7 +18,6 @@ public class LevelLoaderGameOver : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             gm.Reset();
-            AudioManager.PlaySFX(sfxPlay);
             Invoke("LoadGame", 1f);
         }
         else if (Input.anyKeyDown)

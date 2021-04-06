@@ -25,6 +25,9 @@ public class HealthController : MonoBehaviour
 
     void ChangeSprite()
     {
+        if(gm.lifes < 0){
+            return;
+        }
         gameObject.GetComponent<Image>().sprite = hearthsArray[gm.lifes];
     }
 }

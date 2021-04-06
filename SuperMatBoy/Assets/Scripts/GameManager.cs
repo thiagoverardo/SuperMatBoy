@@ -9,10 +9,11 @@
     private float initialTime = 0.0f;
     public int flagsCaptured;
     private int startingFlags = 0;
-    public bool bossTime = false;
+    public bool bossTime;
     private static GameManager _instance;
     public bool levelPassed;
     public bool died;
+    public bool win;
 
     public static GameManager GetInstance()
     {
@@ -30,17 +31,9 @@
         levelPassed = false;
         died = false;
         flagsCaptured = startingFlags;
+        bossTime = false;
+        win = false;
     }
-
-    // public delegate void ChangeStateDelegate();
-    // public static ChangeStateDelegate changeStateDelegate;
-
-    // public void ChangeState(GameState nextState)
-    // {
-    //     if (nextState == GameState.GAME) Reset();
-    //     gameState = nextState;
-    //     changeStateDelegate();
-    // }
 
     public void Reset()
     {
@@ -49,5 +42,7 @@
         levelPassed = false;
         died = false;
         flagsCaptured = startingFlags;
+        bossTime = false;
+        win = false;
     }
 }

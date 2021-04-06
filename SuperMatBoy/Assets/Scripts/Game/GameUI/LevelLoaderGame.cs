@@ -31,10 +31,14 @@ public class LevelLoaderGame : MonoBehaviour
             Invoke("ReloadGame", 1f);
             gm.died = false;
         }
-        if(gm.flagsCaptured >=  1 && gm.bossTime)
+        if(gm.flagsCaptured >=  1)
         {
             Invoke("LoadFinalBoss", 1f);
-            gm.bossTime = false;
+            gm.bossTime = true;
+            gm.flagsCaptured = 0;
+        }
+        if(gm.win){
+            Invoke("LoadGameOverScene", 1f);
         }
 
     }
@@ -45,7 +49,7 @@ public class LevelLoaderGame : MonoBehaviour
 
     void LoadGameOverScene()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(LoadLevel(2));
     }
 
     void LoadFinalBoss()
