@@ -31,6 +31,11 @@ public class LevelLoaderGame : MonoBehaviour
             Invoke("ReloadGame", 1f);
             gm.died = false;
         }
+        if(gm.flagsCaptured >=  1 && gm.bossTime)
+        {
+            Invoke("LoadFinalBoss", 1f);
+            gm.bossTime = false;
+        }
 
     }
     void ReloadGame()
@@ -41,6 +46,11 @@ public class LevelLoaderGame : MonoBehaviour
     void LoadGameOverScene()
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+    void LoadFinalBoss()
+    {
+        StartCoroutine(LoadLevel(3));
     }
 
     IEnumerator LoadLevel(int levelIndex)

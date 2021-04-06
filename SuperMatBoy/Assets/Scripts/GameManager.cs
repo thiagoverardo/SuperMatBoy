@@ -9,6 +9,7 @@
     private float initialTime = 0.0f;
     public int flagsCaptured;
     private int startingFlags = 0;
+    public bool bossTime = false;
     private static GameManager _instance;
     public bool levelPassed;
     public bool died;

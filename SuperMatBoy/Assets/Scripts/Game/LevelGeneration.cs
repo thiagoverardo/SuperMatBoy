@@ -122,7 +122,7 @@ public class LevelGeneration : MonoBehaviour
             else
             {
                 stopGeneration = true;
-                Instantiate(flag, transform.position + new Vector3(9, -1.5f, 0), Quaternion.identity);
+                Instantiate(flag, transform.position + new Vector3(8.5f, 0, 0), Quaternion.identity);
             }
         }
     }

@@ -20,11 +20,14 @@ public class PlayerController : MonoBehaviour
     bool timeOut = false;
     float horizontal;
     float timer = 0f;
+    float timerDano = 0f;
 
     bool jumpKewDown = false;
     bool canVariableJump = false;
     bool onTheGround = false;
     public bool moving;
+
+    private bool acertou = false;
     GameManager gm;
 
     public GameObject blood;
@@ -50,6 +53,10 @@ public class PlayerController : MonoBehaviour
                 if(timer > 0.5f){
                     timeOut = false;
                 }
+            }
+            if(Time.time - timerDano > 0.5)
+            {
+                acertou = false;
             }
 
             if(!timeOut){
@@ -251,6 +258,18 @@ public class PlayerController : MonoBehaviour
             wallJump = true;
             jump = 2;
         }
+        if (collision.gameObject.layer == 1)
+        {
+            anim.SetTrigger("Win");
+            gm.levelPassed = true;
+            moving = false;
+            gm.flagsCaptured++;
+            gm.bossTime = true;
+        }
+        if (collision.gameObject.tag == "Boss" && !acertou)
+        {
+            gm.lifes--;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -282,10 +301,13 @@ public class PlayerController : MonoBehaviour
             Instantiate(blood, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-        if (col.CompareTag("Finish"))
+        if (col.CompareTag("BossHead"))
         {
-            anim.SetTrigger("Win");
-            gm.levelPassed = true;
+            acertou = true;
+            rigid.velocity = new Vector2(rigid.velocity.x, 20);
+            jump = 1;
+            timerDano = Time.time;
+           
         }
     }
 }
