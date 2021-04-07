@@ -10,7 +10,7 @@ public class LevelLoaderGameOver : MonoBehaviour
     public float transitionTime = 4f;
     GameManager gm;
     public AudioClip music;
-    
+
     void Start()
     {
         gm = GameManager.GetInstance();
@@ -18,10 +18,11 @@ public class LevelLoaderGameOver : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             gm.Reset();
             Invoke("LoadGame", 1f);
+            return;
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -29,6 +30,7 @@ public class LevelLoaderGameOver : MonoBehaviour
             GameObject am = GameObject.Find("AudioManager");
             Destroy(am);
             Invoke("LoadMenu", 1f);
+            return;
         }
     }
     void LoadMenu()

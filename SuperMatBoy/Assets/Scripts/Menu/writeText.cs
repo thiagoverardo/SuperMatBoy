@@ -12,12 +12,14 @@ public class writeText : MonoBehaviour
     {
         gm = GameManager.GetInstance();
         text = GetComponent<TMP_Text>();
-        if(gm.win)
+        if (gm.win)
         {
-            text.text = "YOU WIN!";
+            text.text = "Você Ganhou";
         }
-        else{
-            text.text = "GAME OVER";
+        else
+        {
+            text.text = "Fim de jogo\n Apenas vencedores podem entrar para o placar de líderes";
+            text.fontSize = 26;
         }
     }
 }

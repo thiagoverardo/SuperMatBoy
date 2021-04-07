@@ -73,7 +73,8 @@ public class PlayerController : MonoBehaviour
                 horizontal = Input.GetAxis("Horizontal");
             }
 
-            if (gm.win){
+            if (gm.win)
+            {
                 moving = false;
             }
 
@@ -277,7 +278,7 @@ public class PlayerController : MonoBehaviour
             wallJump = true;
             jump = 2;
         }
-        if (collision.gameObject.layer == 1)
+        if (collision.gameObject.layer == 1 && !gm.levelPassed)
         {
             anim.SetTrigger("Win");
             gm.levelPassed = true;

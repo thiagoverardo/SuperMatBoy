@@ -41,8 +41,9 @@ public class UI_LeaderBoard : MonoBehaviour
     }
     public void SubmitButton()
     {
-        
-        if(playerName.text.Length > 0 && playerName.text.Length <= 6){
+
+        if (playerName.text.Length > 0 && playerName.text.Length <= 6 && gm.win)
+        {
             PlayerInfo stats = new PlayerInfo(playerName.text, gm.timeElapsed);
             collectedStats.Add(stats);
             playerName.text = "";
@@ -54,7 +55,7 @@ public class UI_LeaderBoard : MonoBehaviour
     {
         for (int i = collectedStats.Count - 1; i > 0; i--)
         {
-            if (collectedStats[i].time > collectedStats[i - 1].time)
+            if (collectedStats[i].time < collectedStats[i - 1].time)
             {
                 PlayerInfo tempInfo = collectedStats[i - 1];
 
@@ -85,12 +86,16 @@ public class UI_LeaderBoard : MonoBehaviour
         displaynames.text = "";
         displaypts.text = "";
         displaypos.text = "";
+        string minutes;
+        string seconds;
 
         for (int i = 0; i <= collectedStats.Count - 1; i++)
         {
-            displaypos.text += (i + 1)+ "\n";
-            displaynames.text += collectedStats[i].name+ "\n";
-            displaypts.text += collectedStats[i].time + "\n";
+            displaypos.text += (i + 1) + "\n";
+            displaynames.text += collectedStats[i].name + "\n";
+            minutes = Mathf.Floor(collectedStats[i].time / 60).ToString("00");
+            seconds = (collectedStats[i].time % 60).ToString("00");
+            displaypts.text += string.Format("{0}:{1}", minutes, seconds) + "\n";
         }
     }
 
@@ -109,7 +114,7 @@ public class UI_LeaderBoard : MonoBehaviour
 
     public void ClearPrefs()
     {
-        PlayerPrefs.DeleteKey("LeaderBoards");
+        PlayerPrefs.DeleteKey("SMBLeaderBoards");
         displaynames.text = "";
         displaypts.text = "";
         displaypos.text = "";

@@ -20,27 +20,33 @@ public class LevelLoaderGame : MonoBehaviour
     {
         if (gm.levelPassed)
         {
-            gm.levelPassed = false;
             AudioManager.PlaySFX(sfxPlay);
             Invoke("ReloadGame", 1f);
+            gm.levelPassed = false;
+            return;
         }
         if (gm.lifes <= 0)
         {
             Invoke("LoadGameOverScene", 1f);
+            return;
         }
-        if(gm.died)
+        if (gm.died)
         {
             Invoke("ReloadGame", 1f);
             gm.died = false;
+            return;
         }
-        if(gm.flagsCaptured >=  3)
+        if (gm.flagsCaptured >= 3)
         {
             Invoke("LoadFinalBoss", 1f);
             gm.bossTime = true;
             gm.flagsCaptured = 0;
+            return;
         }
-        if(gm.win){
+        if (gm.win)
+        {
             Invoke("LoadGameOverScene", 1f);
+            return;
         }
 
     }
