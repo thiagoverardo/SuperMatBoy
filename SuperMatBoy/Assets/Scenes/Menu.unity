@@ -818,9 +818,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1030845606195339328, guid: 9280398c7a937ce4fa728b757c85e9bf,
         type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c2de3c7f9f6fbd43aabb08e22be1eec, type: 3}
+    - target: {fileID: 1030845606195339328, guid: 9280398c7a937ce4fa728b757c85e9bf,
+        type: 3}
       propertyPath: sfxPlay
       value: 
-      objectReference: {fileID: 8300000, guid: 986534d135f566547b2e72bf20523456, type: 3}
+      objectReference: {fileID: 8300000, guid: 2a2835cb3f2b9a642b800cfcf2901ec6, type: 3}
     - target: {fileID: 1030845606195339334, guid: 9280398c7a937ce4fa728b757c85e9bf,
         type: 3}
       propertyPath: m_Name
@@ -912,9 +917,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1039,7 +1044,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

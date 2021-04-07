@@ -9,9 +9,12 @@ public class LevelLoaderGameOver : MonoBehaviour
     public Animator transition;
     public float transitionTime = 4f;
     GameManager gm;
+    public AudioClip music;
+    
     void Start()
     {
         gm = GameManager.GetInstance();
+        AudioManager.SetAmbience(music);
     }
     void Update()
     {

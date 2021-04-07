@@ -14,6 +14,7 @@
     public bool levelPassed;
     public bool died;
     public bool win;
+    
 
     public static GameManager GetInstance()
     {

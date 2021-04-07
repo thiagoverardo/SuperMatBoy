@@ -75,6 +75,10 @@ public class PlayerController : MonoBehaviour
                 horizontal = Input.GetAxis("Horizontal");
             }
 
+            if (gm.win){
+                moving = false;
+            }
+
             Vector3 charScale = transform.localScale;
 
             anim.SetFloat("VelX", Mathf.Abs(horizontal));

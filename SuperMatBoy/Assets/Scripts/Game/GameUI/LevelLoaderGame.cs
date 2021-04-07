@@ -10,9 +10,11 @@ public class LevelLoaderGame : MonoBehaviour
     public AudioClip sfxPlay;
     public float transitionTime = 4f;
     GameManager gm;
+    public AudioClip music;
     void Start()
     {
         gm = GameManager.GetInstance();
+        AudioManager.SetAmbience(music);
     }
     void Update()
     {

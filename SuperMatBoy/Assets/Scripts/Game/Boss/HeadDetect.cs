@@ -11,9 +11,8 @@ public class HeadDetect : MonoBehaviour
      public int health;
     public int damage;
     private float timeBtwDamage = 1.5f;
-    public Animator camAnim;
     public Slider healthBar;
-    private Animator anim;
+    public Animator anim;
 
     GameManager gm;
 
@@ -29,7 +28,7 @@ public class HeadDetect : MonoBehaviour
         }
 
         if (health <= 0) {
-            Destroy(boss);
+            anim.SetTrigger("dead");
             gm.win = true;
             
         }

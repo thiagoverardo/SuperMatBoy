@@ -8,8 +8,14 @@ public class LevelLoader : MonoBehaviour
 {
 
     public AudioClip sfxPlay;
+    public AudioClip music;
     public Animator transition;
     public float transitionTime = 4f;
+
+    void Start()
+    {
+        AudioManager.SetAmbience(music);
+    }
     void Update()
     {
         if (Input.anyKeyDown)
