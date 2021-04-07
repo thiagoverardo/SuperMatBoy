@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip deathSfx;
     public AudioClip trapSfx;
     public AudioClip bossHitSfx;
+    public AudioClip hitSfx;
     private Renderer rend;
     private Rigidbody2D rigid;
     private Animator anim;
@@ -41,10 +42,13 @@ public class PlayerController : MonoBehaviour
         rend = GetComponent<Renderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        // transform.position = startingPosition.position + new Vector3(-3, 2, 0);
-        transform.position = new Vector3(-39, 22, 0);
         moving = true;
         gm = GameManager.GetInstance();
+
+        if (gm.bossTime)
+            transform.position = new Vector3(-10, -15, 0);
+        else
+            transform.position = new Vector3(-39, 22, 0);
     }
 
 
@@ -61,7 +65,7 @@ public class PlayerController : MonoBehaviour
                     timeOut = false;
                 }
             }
-            if (Time.time - timerDano > 0.5)
+            if (Time.time - timerDano > 1.0f)
             {
                 acertou = false;
             }
@@ -282,10 +286,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Boss" && !acertou)
         {
             gm.lifes--;
+            AudioManager.PlaySFX(hitSfx);
             acertou = true;
-            AudioManager.PlaySFX(bossHitSfx);
             if (gm.lifes <= 0)
             {
+                AudioManager.PlaySFX(deathSfx);
                 moving = false;
                 Instantiate(blood, transform.position, Quaternion.identity);
                 Destroy(gameObject);
@@ -320,9 +325,9 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("sawTrap"))
         {
             gm.lifes--;
-            AudioManager.PlaySFX(deathSfx);
             if (!gm.bossTime)
             {
+                AudioManager.PlaySFX(deathSfx);
                 gm.died = true;
                 moving = false;
                 Instantiate(blood, transform.position, Quaternion.identity);
@@ -330,8 +335,10 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                AudioManager.PlaySFX(hitSfx);
                 if (gm.lifes <= 0)
                 {
+                    AudioManager.PlaySFX(deathSfx);
                     moving = false;
                     Instantiate(blood, transform.position, Quaternion.identity);
                     Destroy(gameObject);
@@ -341,10 +348,10 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("BossHead") && !acertou)
         {
             acertou = true;
-            rigid.velocity = new Vector2(rigid.velocity.x, 20);
+            rigid.velocity = new Vector2(rigid.velocity.x + Random.Range(-30, 30), Random.Range(10, 20));
             jump = 1;
             timerDano = Time.time;
-
+            AudioManager.PlaySFX(bossHitSfx);
         }
     }
 }

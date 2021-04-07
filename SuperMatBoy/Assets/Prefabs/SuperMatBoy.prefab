@@ -149,6 +149,7 @@ MonoBehaviour:
   deathSfx: {fileID: 8300000, guid: 857d3cb3932b7c641886a5d58afb633e, type: 3}
   trapSfx: {fileID: 8300000, guid: eeef81bffd8804e41b2d4d445c6d5a96, type: 3}
   bossHitSfx: {fileID: 8300000, guid: 199e7fffbd5971b4cab83032ef7661eb, type: 3}
+  hitSfx: {fileID: 8300000, guid: ee2d45d2a9632594dbcbbdac667e5d61, type: 3}
   startingPosition: {fileID: 0}
   maxSpeed: 10
   acceleration: 35
