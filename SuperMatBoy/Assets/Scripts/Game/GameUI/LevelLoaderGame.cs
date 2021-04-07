@@ -33,7 +33,7 @@ public class LevelLoaderGame : MonoBehaviour
             Invoke("ReloadGame", 1f);
             gm.died = false;
         }
-        if(gm.flagsCaptured >=  1)
+        if(gm.flagsCaptured >=  3)
         {
             Invoke("LoadFinalBoss", 1f);
             gm.bossTime = true;

@@ -11,10 +11,12 @@ public class LevelLoader : MonoBehaviour
     public AudioClip music;
     public Animator transition;
     public float transitionTime = 4f;
+    GameManager gm;
 
     void Start()
     {
         AudioManager.SetAmbience(music);
+        gm = GameManager.GetInstance();
     }
     void Update()
     {

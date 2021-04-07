@@ -8,6 +8,7 @@ public class ElapsedTimeController : MonoBehaviour
     private string currentTime;
     GameManager gm;
     TMP_Text text;
+    
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class ElapsedTimeController : MonoBehaviour
     void Update()
     {
         text = GetComponent<TMP_Text>();
+
         gm.timeElapsed += Time.deltaTime;
 
         string minutes = Mathf.Floor(gm.timeElapsed / 60).ToString("00");

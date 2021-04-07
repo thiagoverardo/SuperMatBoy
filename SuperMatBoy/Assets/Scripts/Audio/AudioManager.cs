@@ -7,7 +7,12 @@ public class AudioManager : MonoBehaviour
     private AudioSource ambienceSource;
     [SerializeField]
     private AudioClip music;
+    GameManager gm;
     private static AudioManager _instance;
+    void Start()
+    {
+        gm = GameManager.GetInstance();
+    }
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -18,6 +23,16 @@ public class AudioManager : MonoBehaviour
             ambienceSource.clip = music;
             ambienceSource.Play();
         }
+    }
+
+    public static AudioManager GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new AudioManager();
+        }
+
+        return _instance;
     }
 
     public static void PlaySFX(AudioClip audioClip)

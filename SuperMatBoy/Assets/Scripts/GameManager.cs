@@ -14,6 +14,7 @@
     public bool levelPassed;
     public bool died;
     public bool win;
+    public bool gameTime = true;
     
 
     public static GameManager GetInstance()
@@ -33,6 +34,7 @@
         died = false;
         flagsCaptured = startingFlags;
         bossTime = false;
+        gameTime = true;
         win = false;
     }
 
@@ -44,6 +46,7 @@
         died = false;
         flagsCaptured = startingFlags;
         bossTime = false;
+        gameTime = true;
         win = false;
     }
 }

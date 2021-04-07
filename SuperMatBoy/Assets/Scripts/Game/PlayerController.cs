@@ -26,12 +26,10 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float timer = 0f;
     float timerDano = 0f;
-
     bool jumpKewDown = false;
     bool canVariableJump = false;
     bool onTheGround = false;
     public bool moving;
-
     private bool acertou = false;
     GameManager gm;
 
@@ -65,7 +63,7 @@ public class PlayerController : MonoBehaviour
                     timeOut = false;
                 }
             }
-            if (Time.time - timerDano > 1.0f)
+            if (Time.time - timerDano > 0.5f)
             {
                 acertou = false;
             }

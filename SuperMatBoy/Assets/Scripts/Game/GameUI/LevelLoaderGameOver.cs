@@ -23,9 +23,11 @@ public class LevelLoaderGameOver : MonoBehaviour
             gm.Reset();
             Invoke("LoadGame", 1f);
         }
-        else if (Input.anyKeyDown)
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             gm.Reset();
+            GameObject am = GameObject.Find("AudioManager");
+            Destroy(am);
             Invoke("LoadMenu", 1f);
         }
     }
