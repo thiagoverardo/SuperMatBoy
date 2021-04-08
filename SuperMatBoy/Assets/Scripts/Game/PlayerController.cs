@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip trapSfx;
     public AudioClip bossHitSfx;
     public AudioClip hitSfx;
+    public AudioClip nextLevelSFX;
     private Renderer rend;
     private Rigidbody2D rigid;
     private Animator anim;
@@ -26,15 +27,13 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float timer = 0f;
     float timerDano = 0f;
-    bool jumpKewDown = false;
+    bool jumpKeyDown = false;
     bool canVariableJump = false;
     bool onTheGround = false;
     public bool moving;
     private bool acertou = false;
     GameManager gm;
-
     public GameObject blood;
-
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -47,9 +46,10 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-10, -15, 0);
         else
             transform.position = new Vector3(-39, 22, 0);
+
+        gm.levelPassed = false;
+        gm.win = false;
     }
-
-
     void Update()
     {
         if (moving)
@@ -59,24 +59,19 @@ public class PlayerController : MonoBehaviour
                 horizontal = 0f;
                 timer += Time.deltaTime;
                 if (timer > 0.5f)
-                {
                     timeOut = false;
-                }
+
             }
             if (Time.time - timerDano > 0.5f)
-            {
                 acertou = false;
-            }
+
 
             if (!timeOut)
-            {
                 horizontal = Input.GetAxis("Horizontal");
-            }
 
-            if (gm.win)
-            {
+
+            if (gm.win || gm.levelPassed)
                 moving = false;
-            }
 
             Vector3 charScale = transform.localScale;
 
@@ -86,26 +81,17 @@ public class PlayerController : MonoBehaviour
             {
                 charScale.x = -0.268504f;
                 if (rigid.velocity.x > -this.maxSpeed)
-                {
                     rigid.AddForce(new Vector2(-this.acceleration, 0f));
-
-                }
                 else
-                {
                     rigid.velocity = new Vector2(-this.maxSpeed, rigid.velocity.y);
-                }
             }
             if (horizontal > 0)
             {
                 charScale.x = 0.268504f;
                 if (rigid.velocity.x < this.maxSpeed)
-                {
                     rigid.AddForce(new Vector2(this.acceleration, 0f));
-                }
                 else
-                {
                     rigid.velocity = new Vector2(this.maxSpeed, rigid.velocity.y);
-                }
             }
 
             transform.localScale = charScale;
@@ -131,16 +117,14 @@ public class PlayerController : MonoBehaviour
             float vertical = Input.GetAxis("Vertical");
 
             if (onTheGround)
-            {
                 jump = 2;
-            }
 
             if (Input.GetButtonDown("Jump") && jump > 0 && !timeOut)
             {
-                if (!jumpKewDown)
+                if (!jumpKeyDown)
                 {
                     AudioManager.PlaySFX(jumpSfx);
-                    jumpKewDown = true;
+                    jumpKeyDown = true;
                     if (onTheGround || wallHitDJOverride)
                     {
                         bool wallHit = false;
@@ -201,17 +185,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                jumpKewDown = false;
+                jumpKeyDown = false;
                 canVariableJump = false;
             }
 
         }
         else
         {
-            rigid.velocity = new Vector2(0f, 0.6f);
+            rigid.velocity = new Vector2(0f, 0f);
         }
-
-
     }
 
     private bool isWallOnLeft()
@@ -284,7 +266,7 @@ public class PlayerController : MonoBehaviour
             gm.levelPassed = true;
             moving = false;
             gm.flagsCaptured++;
-
+            AudioManager.PlaySFX(nextLevelSFX);
         }
         if (collision.gameObject.tag == "Boss" && !acertou)
         {

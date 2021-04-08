@@ -18,11 +18,9 @@ public class LevelLoaderGame : MonoBehaviour
     }
     void Update()
     {
-        if (gm.levelPassed)
+        if (gm.levelPassed && gm.flagsCaptured < 3)
         {
-            AudioManager.PlaySFX(sfxPlay);
             Invoke("ReloadGame", 1f);
-            gm.levelPassed = false;
             return;
         }
         if (gm.lifes <= 0)
