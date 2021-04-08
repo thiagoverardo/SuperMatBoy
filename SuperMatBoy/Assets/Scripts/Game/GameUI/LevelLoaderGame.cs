@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelLoaderGame : MonoBehaviour
 {
     public Animator transition;
-    public AudioClip sfxPlay;
     public float transitionTime = 4f;
     GameManager gm;
     public AudioClip music;
@@ -18,7 +17,7 @@ public class LevelLoaderGame : MonoBehaviour
     }
     void Update()
     {
-        if (gm.levelPassed && gm.flagsCaptured < 3)
+        if (gm.levelPassed && gm.flagsCaptured < 3 && !gm.bossTime)
         {
             Invoke("ReloadGame", 1f);
             return;
@@ -28,22 +27,22 @@ public class LevelLoaderGame : MonoBehaviour
             Invoke("LoadGameOverScene", 1f);
             return;
         }
-        if (gm.died)
-        {
-            Invoke("ReloadGame", 1f);
-            gm.died = false;
-            return;
-        }
         if (gm.flagsCaptured >= 3)
         {
-            Invoke("LoadFinalBoss", 1f);
             gm.bossTime = true;
             gm.flagsCaptured = 0;
+            Invoke("LoadFinalBoss", 1f);
             return;
         }
         if (gm.win)
         {
             Invoke("LoadGameOverScene", 1f);
+            return;
+        }
+        if (gm.died)
+        {
+            Invoke("ReloadGame", 1f);
+            gm.died = false;
             return;
         }
 

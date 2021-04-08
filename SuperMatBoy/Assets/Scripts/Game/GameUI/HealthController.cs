@@ -19,6 +19,7 @@ public class HealthController : MonoBehaviour
             if (gm.lifes > 0)
             {
                 gm.lifes--;
+                gm.win = true;
             }
         }
     }

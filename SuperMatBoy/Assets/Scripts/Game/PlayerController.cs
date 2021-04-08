@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         moving = true;
         gm = GameManager.GetInstance();
+        anim.SetBool("Flag", false);
 
         if (gm.bossTime)
             transform.position = new Vector3(-10, -15, 0);
@@ -70,9 +71,11 @@ public class PlayerController : MonoBehaviour
                 horizontal = Input.GetAxis("Horizontal");
 
 
-            if (gm.win || gm.levelPassed)
+            if (gm.win || gm.levelPassed){
                 moving = false;
-
+                anim.SetBool("Flag", true);
+                anim.SetTrigger("Win");
+            }
             Vector3 charScale = transform.localScale;
 
             anim.SetFloat("VelX", Mathf.Abs(horizontal));
@@ -263,6 +266,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == 1 && !gm.levelPassed)
         {
             anim.SetTrigger("Win");
+            anim.SetBool("Flag", true);
             gm.levelPassed = true;
             moving = false;
             gm.flagsCaptured++;

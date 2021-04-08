@@ -36,13 +36,15 @@ public class UI_LeaderBoard : MonoBehaviour
         displaynames.text = "";
         displaypts.text = "";
         displaypos.text = "";
+        playerName.characterLimit = 3;
+        playerName.characterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
         LoadLeaderBoard();
 
     }
     public void SubmitButton()
     {
 
-        if (playerName.text.Length > 0 && playerName.text.Length <= 6 && gm.win)
+        if (playerName.text.Length > 0 && gm.win)
         {
             PlayerInfo stats = new PlayerInfo(playerName.text, gm.timeElapsed);
             collectedStats.Add(stats);
@@ -71,8 +73,8 @@ public class UI_LeaderBoard : MonoBehaviour
         string stats = "";
         for (int i = 0; i < collectedStats.Count; i++)
         {
-            stats += collectedStats[i].name + ",";
-            stats += collectedStats[i].time + ",";
+            stats += collectedStats[i].name + ";";
+            stats += collectedStats[i].time + ";";
         }
 
         //salva a string
@@ -89,20 +91,32 @@ public class UI_LeaderBoard : MonoBehaviour
         string minutes;
         string seconds;
 
-        for (int i = 0; i <= collectedStats.Count - 1; i++)
-        {
-            displaypos.text += (i + 1) + "\n";
-            displaynames.text += collectedStats[i].name + "\n";
-            minutes = Mathf.Floor(collectedStats[i].time / 60).ToString("00");
-            seconds = (collectedStats[i].time % 60).ToString("00");
-            displaypts.text += string.Format("{0}:{1}", minutes, seconds) + "\n";
+        if(collectedStats.Count <= 8){
+            for (int i = 0; i <= collectedStats.Count - 1; i++)
+            {
+                displaypos.text += (i + 1) + "\n";
+                displaynames.text += collectedStats[i].name + "\n";
+                minutes = Mathf.Floor(collectedStats[i].time / 60).ToString("00");
+                seconds = (collectedStats[i].time % 60).ToString("00");
+                displaypts.text += string.Format("{0}:{1}", minutes, seconds) + "\n";
+            }
         }
+        else{
+            for (int i = 0; i < 8; i++)
+            {
+                displaypos.text += (i + 1) + "\n";
+                displaynames.text += collectedStats[i].name + "\n";
+                minutes = Mathf.Floor(collectedStats[i].time / 60).ToString("00");
+                seconds = (collectedStats[i].time % 60).ToString("00");
+                displaypts.text += string.Format("{0}:{1}", minutes, seconds) + "\n";
+            }
+        }        
     }
 
     void LoadLeaderBoard()
     {
         string stats = PlayerPrefs.GetString("SMBLeaderBoards", "");
-        string[] stats2 = stats.Split(',');
+        string[] stats2 = stats.Split(';');
 
         for (int i = 0; i < stats2.Length - 2; i += 2)
         {
