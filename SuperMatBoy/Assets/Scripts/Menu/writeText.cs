@@ -18,7 +18,7 @@ public class writeText : MonoBehaviour
         }
         else
         {
-            text.text = "Fim de jogo\n Apenas vencedores podem entrar para o placar de líderes";
+            text.text = "Fim de jogo";
             text.fontSize = 26;
         }
     }

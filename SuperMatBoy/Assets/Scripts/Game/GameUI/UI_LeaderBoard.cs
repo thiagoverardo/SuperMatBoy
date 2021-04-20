@@ -23,6 +23,9 @@ public class UI_LeaderBoard : MonoBehaviour
     public TMP_Text displaynames;
     public TMP_Text displaypts;
     public TMP_Text displaypos;
+    public TMP_Text mensagem;
+    public Button but1;
+    public Button but2;
     GameManager gm;
 
     //Lista que vai guardar as stats do jogador
@@ -38,6 +41,13 @@ public class UI_LeaderBoard : MonoBehaviour
         displaypos.text = "";
         playerName.characterLimit = 3;
         playerName.characterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
+        mensagem.gameObject.SetActive(false);
+        if(!gm.win){
+            but1.gameObject.SetActive(false);
+            but2.gameObject.SetActive(false);
+            playerName.gameObject.SetActive(false);
+            mensagem.gameObject.SetActive(true);
+        }
         LoadLeaderBoard();
 
     }

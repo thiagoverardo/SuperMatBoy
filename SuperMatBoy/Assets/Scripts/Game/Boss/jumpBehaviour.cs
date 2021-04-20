@@ -34,6 +34,9 @@ public class jumpBehaviour : StateMachineBehaviour
                 Vector2 target = new Vector2(playerPos.position.x, animator.transform.position.y);
                 animator.transform.position = Vector2.MoveTowards(animator.transform.position, target, speed * Time.deltaTime);
             }
+            if(animator.transform.position.y > 27){
+                animator.transform.position = new Vector2(animator.transform.position.x, -10);
+            }
         }
     }
 
