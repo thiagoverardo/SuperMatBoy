@@ -45,7 +45,6 @@ public class LevelLoaderGame : MonoBehaviour
             gm.died = false;
             return;
         }
-
     }
     void ReloadGame()
     {

@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (!GameObject.FindGameObjectWithTag("Finish")) {
+            return;
+        }
         if (moving)
         {
             if (timeOut)
