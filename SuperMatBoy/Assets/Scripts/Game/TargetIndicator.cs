@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetIndicator : MonoBehaviour
 {
-    private float hideDistance = 20f;
+    private float hideDistance = 25f;
     GameManager gm;
     void Start()
     {

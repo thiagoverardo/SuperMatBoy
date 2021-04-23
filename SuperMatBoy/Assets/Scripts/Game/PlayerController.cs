@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (!GameObject.FindGameObjectWithTag("Finish")) {
+        if (!GameObject.FindGameObjectWithTag("Finish") && !gm.bossTime) {
             return;
         }
         if (moving)

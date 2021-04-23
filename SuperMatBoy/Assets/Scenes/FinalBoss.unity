@@ -16127,6 +16127,8 @@ MonoBehaviour:
   smoothSpeed: 0.05
   offset: {x: 0, y: 0, z: -10}
   pc: {fileID: 153522997}
+  minValues: {x: -28.4, y: -38.5, z: -10}
+  maxValue: {x: 28.1, y: 18.2, z: -10}
 --- !u!20 &1524807611
 Camera:
   m_ObjectHideFlags: 0
@@ -16512,6 +16514,8 @@ MonoBehaviour:
   smoothSpeed: 0.05
   offset: {x: 0, y: 0, z: -10}
   pc: {fileID: 153522997}
+  minValues: {x: -32, y: -46, z: -10}
+  maxValue: {x: 32, y: 26, z: -10}
 --- !u!81 &2008025430
 AudioListener:
   m_ObjectHideFlags: 0

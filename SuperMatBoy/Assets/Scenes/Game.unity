@@ -526,7 +526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152455916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.5, y: 18.7, z: -10}
+  m_LocalPosition: {x: -28.4, y: -38.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -548,6 +548,8 @@ MonoBehaviour:
   smoothSpeed: 0.05
   offset: {x: 0, y: 0, z: -10}
   pc: {fileID: 680763578}
+  minValues: {x: -28.4, y: -38.5, z: -10}
+  maxValue: {x: 28.1, y: 18.2, z: -10}
 --- !u!1 &194477169
 GameObject:
   m_ObjectHideFlags: 0
@@ -16221,7 +16223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062395773}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.8, y: 21.7, z: -10}
+  m_LocalPosition: {x: -32, y: -45.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16243,6 +16245,8 @@ MonoBehaviour:
   smoothSpeed: 0.06
   offset: {x: 0, y: 0, z: -10}
   pc: {fileID: 680763578}
+  minValues: {x: -32, y: -46, z: -10}
+  maxValue: {x: 32, y: 26, z: -10}
 --- !u!1 &1126064122
 GameObject:
   m_ObjectHideFlags: 0
@@ -16901,13 +16905,43 @@ PrefabInstance:
       objectReference: {fileID: 1444651234}
     - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
         type: 3}
+      propertyPath: maxValue.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
+      propertyPath: maxValue.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
+      propertyPath: maxValue.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
+      propertyPath: minValues.x
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
+      propertyPath: minValues.y
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
+      propertyPath: minValues.z
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748615909442440831, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
+        type: 3}
       propertyPath: smoothSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2247167040955968813, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.62352943
+      value: 0.6745098
       objectReference: {fileID: 0}
     - target: {fileID: 2247167040955968813, guid: 65b3c22bf6ec78f4f99d7e1cbc756939,
         type: 3}
